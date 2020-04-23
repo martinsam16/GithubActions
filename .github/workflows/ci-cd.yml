@@ -7,8 +7,8 @@ jobs:
   build-push:
     runs-on: ubuntu-18.04
     steps:
-      - name: Clonar y hacer checkout de la rama master
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
+
       - name: Build y push de la imagen de docker a dockerhub
         uses: HurricanKai/Publish-Docker-Github-Action@master
         with:
