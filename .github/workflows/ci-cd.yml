@@ -1,4 +1,4 @@
-name: Construir imagen de docker y subirla a dockerhub
+name: Construir imagen de docker, subirla a dockerhub y correrla en un server via ssh.
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ jobs:
       - name: Build y push de la imagen de docker a dockerhub
         uses: HurricanKai/Publish-Docker-Github-Action@master
         with:
-          name: malditoidealismo/github-actions
+          name: ${{ secrets.REPO_DOCKERHUB }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           #dockerfile: Dockerfile
@@ -30,6 +30,6 @@ jobs:
           script: |
             echo ${{ secrets.PASSWORD }} | sudo -S apt update
             echo ${{ secrets.PASSWORD }} | sudo -S apt install docker.io -y
-            echo ${{ secrets.PASSWORD }} | sudo -S docker rmi -f malditoidealismo/github-actions:latest
+            echo ${{ secrets.PASSWORD }} | sudo -S docker rmi -f ${{ secrets.REPO_DOCKERHUB }}
             echo ${{ secrets.PASSWORD }} | sudo -S docker rm -f hola-mundo
-            echo ${{ secrets.PASSWORD }} | sudo -S docker run -p 3000:3000 -dit --name="hola-mundo" malditoidealismo/github-actions:latest
+            echo ${{ secrets.PASSWORD }} | sudo -S docker run -p 3000:3000 -dit --name="hola-mundo" ${{ secrets.REPO_DOCKERHUB }}:latest
