@@ -28,5 +28,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: echo ${{ secrets.PASSWORD }} | sudo -S apt update && 
-                  echo ${{ secrets.PASSWORD }} | sudo -S apt install docker.io -y && 
-                  echo ${{ secrets.PASSWORD }} | sudo -S docker run malditoidealismo/github-actions:latest
+                  echo ${{ secrets.PASSWORD }} | sudo -S apt install docker.io -y &&
+                  echo ${{ secrets.PASSWORD }} | sudo -S docker rmi -f malditoidealismo/github-actions:latest &&
+                  echo ${{ secrets.PASSWORD }} | sudo -S docker rm -f hola-mundo &&
+                  echo ${{ secrets.PASSWORD }} | sudo -S docker run -p 3000:3000 -dit --name="hola-mundo" malditoidealismo/github-actions:latest
