@@ -7,7 +7,8 @@ jobs:
   build-push:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@master
+      - name: Clonar y hacer checkout de la rama master
+        uses: actions/checkout@master
       - name: Build y push de la imagen de docker a dockerhub
         uses: HurricanKai/Publish-Docker-Github-Action@master
         with:
@@ -16,13 +17,16 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           #dockerfile: Dockerfile
   deploy-server:
+    needs: build-push
     runs-on: ubuntu-18.04
     steps:
-      - uses: appleboy/ssh-action@master
       - name: Conectarse via ssh a server y correr imagen de docker
+        uses: appleboy/ssh-action@master
+        env:
+          PSSW_SERVER: ${{ secrets.PASSWORD }}
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: echo ${{ secrets.PASSWORD }} | sudo -S apt update && apt install docker.io -y && docker run malditoidealismo/github-actions:latest
+          script: echo $PSSW_SERVER | sudo -S apt update && apt install docker.io -y && docker run malditoidealismo/github-actions:latest
