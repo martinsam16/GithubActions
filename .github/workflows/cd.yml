@@ -11,8 +11,7 @@ jobs:
     - name: Build y push la imagen de docker
       uses: HurricanKai/Publish-Docker-Github-Action@master
       with:
-        name: maditoidealismo/github-actions
+        name: malditoidealismo/github-actions
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: Dockerfile
-        registry: hub.docker.com
+        #dockerfile: Dockerfile
