@@ -22,11 +22,11 @@ jobs:
     steps:
       - name: Conectarse via ssh a server y correr imagen de docker
         uses: appleboy/ssh-action@master
-        env:
-          PSSW_SERVER: ${{ secrets.PASSWORD }}
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: echo $PSSW_SERVER | sudo -S apt update && apt install docker.io -y && docker run malditoidealismo/github-actions:latest
+          script: echo ${{ secrets.PASSWORD }} | sudo -S apt update && 
+                  echo ${{ secrets.PASSWORD }} | sudo -S apt install docker.io -y && 
+                  echo ${{ secrets.PASSWORD }} | sudo -S docker run malditoidealismo/github-actions:latest
