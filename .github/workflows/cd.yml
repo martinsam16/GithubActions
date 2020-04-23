@@ -1,13 +1,14 @@
-on: push
 name: Construir imagen de docker y subirla a dockerhub
+on:
+  push:
+    branches:
+      - master
 jobs:
-  build-push:
+  clonar:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
-    - name: Clonar y checkout de la rama actual
-
-    - name: Build y push la imagen
+    - name: Build y push la imagen de docker
       uses: HurricanKai/Publish-Docker-Github-Action@master
       with:
         name: maditoidealismo/github-actions
