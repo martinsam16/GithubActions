@@ -4,11 +4,11 @@ jobs:
   build-push:
     runs-on: ubuntu-18.04
     steps:
-      - name: Clonar y checkout de la rama actual
       - uses: actions/checkout@master
+      - name: Clonar y checkout de la rama actual
 
       - name: Build y push la imagen
-      - uses: HurricanKai/Publish-Docker-Github-Action@master
+        uses: HurricanKai/Publish-Docker-Github-Action@master
         with:
           name: maditoidealismo/github-actions
           username: ${{ secrets.DOCKER_USERNAME }}
